@@ -17,13 +17,16 @@ def fd_coefficients(M, x0, x):
             # use the SymPy factorial
             matrix[i, j] = ((x[i] - x0)**j) / sp.factorial(j)
 
-    # invert matrix to retrieve weights using the SymPy
+    # invert matrix to retrieve weights using the SymPy inversion method
     coefficients = matrix.inv()
 
+    # return the matrix of coefficients
     return coefficients
 
 
 # example use
 m, x0, x = 4, 0, [-2, -1, 0, 1, 2]
 weights = fd_coefficients(m, x0, x)
+
+# show matrix using pprint
 sp.pprint(weights)
