@@ -6,7 +6,7 @@ import sympy as sp
 
 # given a derivative order M, expansion point x0 and grid points x
 def fd_coefficients(M, x0, x):
-    # initialise matrix of size M+1 x M+1
+    # initialise matrix of size M+1 x M+1 with symbolic elements
     matrix = sp.Matrix.zeros(M+1, M+1)
 
     # initialising a for loop to iterate through each row
@@ -14,9 +14,10 @@ def fd_coefficients(M, x0, x):
         # inner loop to iterate through each column within the row
         for j in range(M+1):
             # update the respective element with the Taylor series coefficient
+            # use the SymPy factorial
             matrix[i, j] = ((x[i] - x0)**j) / sp.factorial(j)
 
-    # invert matrix to retrieve weights
+    # invert matrix to retrieve weights using the SymPy
     coefficients = matrix.inv()
 
     return coefficients
