@@ -1,32 +1,40 @@
 # finite difference coefficients algorithm
 
 # import relevant modules
+import numpy as np
+from scipy.linalg import inv
+from scipy.special import factorial
 import sympy as sp
 
 
 # given a derivative order M, expansion point x0 and grid points x
 def fd_coefficients(M, x0, x):
-    # initialise matrix of size M+1 x M+1 with symbolic elements
-    matrix = sp.Matrix.zeros(M+1, M+1)
 
-    # initialising a for loop to iterate through each row
-    for i in range(M+1):
-        # inner loop to iterate through each column within the row
-        for j in range(M+1):
-            # update the respective element with the Taylor series coefficient
-            # use the SymPy factorial
-            matrix[i, j] = ((x[i] - x0)**j) / sp.factorial(j)
+    # create an array of the powers from 0 to M
+    powers = np.arange(M + 1)
 
-    # invert matrix to retrieve weights using the SymPy inversion method
-    coefficients = matrix.inv()
+    # use broadcasting to calculate the matrix
+    # this removes the need for nested for loops
+    matrix = ((x[:, None] - x0) ** powers) / factorial(powers)
 
-    # return the matrix of coefficients
+    # invert the matrix to retrieve the weights
+    coefficients = inv(matrix)
+
+    # convert to a SymPy matrix for output
+    coefficients = sp.Matrix(coefficients)
+
+    # rationalize the entries
+    coefficients = coefficients.applyfunc(lambda x: sp.nsimplify(x, rational=True))
+
+    # replace small floating-point numbers close to zero with symbolic zero
+    coefficients = coefficients.applyfunc(lambda x: 0 if abs(x) < 1e-10 else x)
+
     return coefficients
 
 
 # example use
-m, x0, x = 4, 0, [-2, -1, 0, 1, 2]
-weights = fd_coefficients(m, x0, x)
+m, x0, x = 4, 0, np.array([-2, -1, 0, 1, 2])
+coefficients = fd_coefficients(m, x0, x)
 
 # show matrix using pprint
-sp.pprint(weights)
+sp.pprint(coefficients)
