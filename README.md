@@ -2,7 +2,7 @@
 
 Hardware is increasingly being designed to support AI/ML applications that make use of reduced precision arithmetic with FP16 (or FP8) as opposed to the standard FP32/FP64.
 Seismic modelling and imaging is a major HPC application and requires efficient leveraging of hardware, so we aim to scale problems such that they remain in the FP16 range.
-Scaling problems so they remain in the desired FP16 range, without producing any over/underflow will allow for effective use of new hardware systems and a gain in both speed and memory usage.
+Scaling problems so they remain in the desired FP16 range, without producing any over/underflow will allow for effective use of new hardware systems and a gain in both speed and memory reduction.
 This work is done primarily using the Devito DSL, a Python package used for solving PDEs with finite difference methods. Users outline a problem in Python and Devito generates C code to execute the simulation.
 
 This repository stores all of the work done in the process of finding a generalised method for scaling equations to FP16 range, thus allowing them to be solved on new AI hardware.
