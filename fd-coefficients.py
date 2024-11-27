@@ -31,10 +31,5 @@ def fd_coefficients(M, x0, x):
 
     return coefficients
 
-
-# example use
-m, x0, x = 4, 0, np.array([-2, -1, 0, 1, 2])
-coefficients = fd_coefficients(m, x0, x)
-
 # show matrix using pprint
-sp.pprint(coefficients)
+#sp.pprint(coefficients)
