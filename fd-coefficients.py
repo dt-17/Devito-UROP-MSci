@@ -31,5 +31,13 @@ def fd_coefficients(M, x0, x):
 
     return coefficients
 
+# Constants
+L = 1000.0                  # Half-length of the domain in meters (standard float)
+N = 12                    # Number of spatial points
+x = np.linspace(-L, L, N+1)  # Spatial grid as a NumPy array
+
+coefficients = fd_coefficients(N, 0, x)
+
 # show matrix using pprint
 #sp.pprint(coefficients)
+print(type(coefficients))
