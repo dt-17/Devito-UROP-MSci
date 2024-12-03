@@ -51,12 +51,14 @@ def calculate_diff(unscaled_field, scaled_field):
     plt.tight_layout()
 
     # calculate absolute percentage change
-    change = (np.abs(diff_field)/np.abs(unscaled_field))*100
+    diff_range = np.amax(diff_field) - np.amin(diff_field)
+    unscaled_range = np.amax(unscaled_field) - np.amin(unscaled_field)
+    change = (diff_range/unscaled_range) * 100
 
     # couple of print statements to show the max/min difference
     print("Maximum value of the difference:", np.amax(diff_field))
     print("Minimum value of the difference:", np.amin(diff_field))
-    print("Absolute percentage change: ", change, "%")
+    print("Percentage change: ", change, "%")
 
     # Show the plot
     plt.show()
