@@ -116,12 +116,9 @@ def solve(prec, L, c, N, T, courant):
 
         # Compute error at this time step
         t = n * dt
-        if n in Nt:
-            u_analytic = analytical_solution(t, x, c, L)
-            errors.append({
-                "time": t,
-                "error": max(abs(u[i] - u_analytic[i]) for i in range(N))
-                })
+        u_analytic = analytical_solution(t, x, c, L)
+        time_step_error = max(abs(u[i] - u_analytic[i]) for i in range(N))
+        errors.append(time_step_error)
 
         # Update arrays for the next time step
         u_prev = u.copy()
