@@ -114,9 +114,9 @@ def solve(prec, L, c, N, T, courant):
         u_next[0] = 0.0
         u_next[-1] = 0.0
 
-        # Compute error at this time step (if plot_times include the current time step)
+        # Compute error at this time step
         t = n * dt
-        if n in plot_times:
+        if n in Nt:
             u_analytic = analytical_solution(t, x, c, L)
             errors.append({
                 "time": t,
@@ -126,7 +126,7 @@ def solve(prec, L, c, N, T, courant):
         # Update arrays for the next time step
         u_prev = u.copy()
         u = u_next.copy()
-    return u_num_at_t
+    return u_num_at_t, errors
 
 
 def plot(solutions, L, c, N, T, C):
