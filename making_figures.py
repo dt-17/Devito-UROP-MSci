@@ -68,10 +68,12 @@ def calculate_diff(unscaled_field, scaled_field):
 # functions for solving wave equation for given set up and plotting results
 # Analytical Solution
 def analytical_solution(t, x, c, L):
+    "Returns analytical solution at a given timestep"
     t_np = float(t)
     return np.cos(2 * np.pi * c * t_np / L) * np.sin(2 * np.pi * x / L)
 
 def solve(prec, L, c, N, T, courant):
+    "Solves given system, returning the numerical solution at t0, tN/2 and tN"
     mp.prec = prec
     dx = 2 * L / (N - 1)          # Spatial step size for [-L, L] domain
     courant = courant
@@ -128,7 +130,7 @@ def solve(prec, L, c, N, T, courant):
 
 
 def plot(solutions, L, c, N, T, C):
-
+    "Produces plot of analytical solution above numerical solution"
     dx = 2 * L / (N - 1)          # Spatial step size for [-L, L] domain
     courant = C
     dt = courant * dx / c             # Time step size (CFL condition)
